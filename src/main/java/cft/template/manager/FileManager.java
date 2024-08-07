@@ -46,7 +46,7 @@ public class FileManager {
             floatWriter = new BufferedWriter(new FileWriter(getOutputFile("floats.txt"), append));
             stringWriter = new BufferedWriter(new FileWriter(getOutputFile("strings.txt"), append));
         } catch (IOException e) {
-            System.err.println("Ошибка при создании файлов для записи: " + e.getMessage());
+            System.err.println("Error when creating files for recording: " + e.getMessage());
         }
     }
 
@@ -60,7 +60,7 @@ public class FileManager {
             if (floatWriter != null) floatWriter.close();
             if (stringWriter != null) stringWriter.close();
         } catch (IOException e) {
-            System.err.println("Ошибка при закрытии файлов для записи: " + e.getMessage());
+            System.err.println("Error when closing files for writing: " + e.getMessage());
         }
     }
 
@@ -71,7 +71,7 @@ public class FileManager {
                 checkLine(line);
             }
         } catch (IOException e) {
-            System.err.println("Ошибка чтения файла " + file.getName() + ": " + e.getMessage());
+            System.err.println("Error reading file " + file.getName() + ": " + e.getMessage());
         }
     }
 
@@ -85,7 +85,7 @@ public class FileManager {
                 writeLine(stringWriter, line, stringStatsCollector);
             }
         } catch (IOException e) {
-            System.err.println("Ошибка записи строки: " + e.getMessage());
+            System.err.println("Error writing line: " + e.getMessage());
         }
     }
 

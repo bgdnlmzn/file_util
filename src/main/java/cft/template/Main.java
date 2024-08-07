@@ -23,7 +23,6 @@ public class Main {
         manager.manageFiles(cmdArgs.getFileNames());
 
         StatisticsPrinter.printStatistics(manager.getAllStatistics(),
-                cmdArgs.isShowShortStats(),
                 cmdArgs.isShowFullStats());
     }
 }

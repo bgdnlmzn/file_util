@@ -4,7 +4,6 @@ import java.util.Map;
 
 public class StatisticsPrinter {
     public static void printStatistics(Map<String, Statistics> statsMap,
-                                       boolean showShortStats,
                                        boolean showFullStats) {
         for (Map.Entry<String, Statistics> entry : statsMap.entrySet()) {
             System.out.println("Statistics for " + entry.getKey() + ":");

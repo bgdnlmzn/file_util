@@ -1,13 +1,14 @@
 plugins {
     id 'java'
     id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 group = 'cft.template'
 version = '1.0'
 
 application {
-    mainClass = 'cft.template.Main'  // Замените на ваш основной класс
+    mainClass = 'cft.template.Main'
 }
 
 repositories {
@@ -23,24 +24,20 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-jar {
-    manifest {
-        attributes(
-                'Main-Class': 'cft.template.Main'
-        )
-    }
+shadowJar {
     archiveBaseName.set('util')
     archiveVersion.set('')
+    archiveClassifier.set('')
+    manifest {
+        attributes 'Main-Class': 'cft.template.Main'
+    }
 }
 
-task fatJar(type: Jar) {
-    manifest {
-        attributes(
-                'Main-Class': 'cft.template.Main'
-        )
-    }
-    archiveBaseName.set('util')
-    archiveVersion.set('')
-    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
+tasks.named('jar') {
+    enabled = false
 }
+
+tasks.build {
+    dependsOn shadowJar
+}
+

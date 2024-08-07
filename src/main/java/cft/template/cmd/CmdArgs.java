@@ -6,25 +6,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CmdArgs {
-    @Parameter(names = "-o", description = "Путь для выходных файлов")
+    @Parameter(names = "-o", description = "Path for output files")
     private String outputPath = ".";
 
-    @Parameter(names = "-p", description = "Префикс для выходных файлов")
+    @Parameter(names = "-p", description = "Prefix for output files")
     private String prefix = "";
 
-    @Parameter(names = "-a", description = "Добавить в существующие файлы")
+    @Parameter(names = "-a", description = "Add to current files")
     private boolean append = false;
 
-    @Parameter(names = "-s", description = "Показать краткую статистику")
+    @Parameter(names = "-s", description = "Show short statistics")
     private boolean showShortStats = false;
 
-    @Parameter(names = "-f", description = "Показать полную статистику")
+    @Parameter(names = "-f", description = "Show full statistics")
     private boolean showFullStats = false;
 
-    @Parameter(names = "-h", help = true, description = "Показать справку")
+    @Parameter(names = "-h", help = true, description = "Show help")
     private boolean help;
 
-    @Parameter(description = "Файлы для обработки")
+    @Parameter(description = "Files for manage")
     private List<String> fileNames = new ArrayList<>();
 
     public String getOutputPath() {
