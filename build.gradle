@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'cft.template'
+version = '1.0'
+
+application {
+    mainClass = 'cft.template.Main'  // Замените на ваш основной класс
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.beust:jcommander:1.81'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'cft.template.Main'
+        )
+    }
+    archiveBaseName.set('util')
+    archiveVersion.set('')
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes(
+                'Main-Class': 'cft.template.Main'
+        )
+    }
+    archiveBaseName.set('util')
+    archiveVersion.set('')
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
