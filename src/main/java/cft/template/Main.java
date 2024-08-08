@@ -22,11 +22,13 @@ public class Main {
         }
 
         FileManager fileManager = new FileManager(cmdArgs.getOutputPath(),
-                cmdArgs.getPrefix(), cmdArgs.isAppend());
+                cmdArgs.getPrefix(),
+                cmdArgs.isAppend());
 
         fileManager.manageFiles(cmdArgs.getFileNames());
 
         StatisticsPrinter.printStatistics(fileManager.getAllStatistics(),
-                cmdArgs.isShowShortStats(), cmdArgs.isShowFullStats());
+                cmdArgs.isShowShortStats(),
+                cmdArgs.isShowFullStats());
     }
 }

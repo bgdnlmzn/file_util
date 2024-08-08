@@ -4,7 +4,8 @@ import java.util.Map;
 
 public class StatisticsPrinter {
     public static void printStatistics(Map<String, Statistics> statsMap,
-                                       boolean showShortStats, boolean showFullStats) {
+                                       boolean showShortStats,
+                                       boolean showFullStats) {
         if (!showShortStats && !showFullStats) {
             return;
         }
