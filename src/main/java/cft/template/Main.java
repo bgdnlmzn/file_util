@@ -1,28 +1,32 @@
 package cft.template;
-import com.beust.jcommander.JCommander;
+
 import cft.template.cmd.CmdArgs;
 import cft.template.manager.FileManager;
 import cft.template.statistics.StatisticsPrinter;
+import com.beust.jcommander.JCommander;
 
 public class Main {
     public static void main(String[] args) {
         CmdArgs cmdArgs = new CmdArgs();
-        JCommander jCommander = JCommander.newBuilder()
+        JCommander.newBuilder()
                 .addObject(cmdArgs)
-                .build();
-        jCommander.parse(args);
+                .build()
+                .parse(args);
 
         if (cmdArgs.isHelp()) {
-            jCommander.usage();
+            JCommander.newBuilder()
+                    .addObject(cmdArgs)
+                    .build()
+                    .usage();
             return;
         }
 
-        FileManager manager = new FileManager(cmdArgs.getOutputPath(),
-                cmdArgs.getPrefix(),
-                cmdArgs.isAppend());
-        manager.manageFiles(cmdArgs.getFileNames());
+        FileManager fileManager = new FileManager(cmdArgs.getOutputPath(),
+                cmdArgs.getPrefix(), cmdArgs.isAppend());
 
-        StatisticsPrinter.printStatistics(manager.getAllStatistics(),
-                cmdArgs.isShowFullStats());
+        fileManager.manageFiles(cmdArgs.getFileNames());
+
+        StatisticsPrinter.printStatistics(fileManager.getAllStatistics(),
+                cmdArgs.isShowShortStats(), cmdArgs.isShowFullStats());
     }
 }

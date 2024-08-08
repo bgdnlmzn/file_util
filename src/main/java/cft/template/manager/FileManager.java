@@ -6,9 +6,11 @@ import cft.template.statistics.StatisticsCollector;
 import java.io.File;
 import java.io.IOException;
 import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.OutputStreamWriter;
+import java.io.FileOutputStream;
 import java.io.BufferedReader;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
@@ -40,14 +42,6 @@ public class FileManager {
         if (!dir.exists()) {
             dir.mkdirs();
         }
-
-        try {
-            intWriter = new BufferedWriter(new FileWriter(getOutputFile("integers.txt"), append));
-            floatWriter = new BufferedWriter(new FileWriter(getOutputFile("floats.txt"), append));
-            stringWriter = new BufferedWriter(new FileWriter(getOutputFile("strings.txt"), append));
-        } catch (IOException e) {
-            System.err.println("Error when creating files for recording: " + e.getMessage());
-        }
     }
 
     public void manageFiles(List<String> fileNames) {
@@ -55,34 +49,37 @@ public class FileManager {
             manageFile(new File(fileName));
         }
 
-        try {
-            if (intWriter != null) intWriter.close();
-            if (floatWriter != null) floatWriter.close();
-            if (stringWriter != null) stringWriter.close();
-        } catch (IOException e) {
-            System.err.println("Error when closing files for writing: " + e.getMessage());
-        }
+        closeWriters();
+
+        System.out.println("Done!");
     }
 
     private void manageFile(File file) {
         try (BufferedReader reader = Files.newBufferedReader(file.toPath())) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                checkLine(line);
+            String line = reader.readLine();
+            if (line == null) {
+                System.err.println("Warning: file " + file.getName() + " is empty");
+                return;
             }
+
+            do {
+                checkLine(line);
+            } while ((line = reader.readLine()) != null);
+
         } catch (IOException e) {
-            System.err.println("Error reading file " + file.getName() + ": " + e.getMessage());
+            System.err.println("Error reading file " + e.getMessage());
         }
     }
+
 
     private void checkLine(String line) {
         try {
             if (isInteger(line)) {
-                writeLine(intWriter, line, intStatsCollector);
+                writeLine(getIntWriter(), line, intStatsCollector);
             } else if (isFloat(line)) {
-                writeLine(floatWriter, line, floatStatsCollector);
+                writeLine(getFloatWriter(), line, floatStatsCollector);
             } else {
-                writeLine(stringWriter, line, stringStatsCollector);
+                writeLine(getStringWriter(), line, stringStatsCollector);
             }
         } catch (IOException e) {
             System.err.println("Error writing line: " + e.getMessage());
@@ -107,15 +104,55 @@ public class FileManager {
         }
     }
 
-    private File getOutputFile(String fileName) {
-        String path = outputPath.isEmpty() ? "" : outputPath + File.separator;
-        return new File(path + prefix + fileName);
+    private BufferedWriter getIntWriter() throws IOException {
+        if (intWriter == null) {
+            intWriter = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(getOutputFile("integers.txt"), append),
+                    StandardCharsets.UTF_8));
+        }
+        return intWriter;
     }
 
-    private void writeLine(BufferedWriter writer, String line, StatisticsCollector collector) throws IOException {
+    private BufferedWriter getFloatWriter() throws IOException {
+        if (floatWriter == null) {
+            floatWriter = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(getOutputFile("floats.txt"), append),
+                    StandardCharsets.UTF_8));
+        }
+        return floatWriter;
+    }
+
+    private BufferedWriter getStringWriter() throws IOException {
+        if (stringWriter == null) {
+            stringWriter = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(getOutputFile("strings.txt"), append),
+                    StandardCharsets.UTF_8));
+        }
+        return stringWriter;
+    }
+
+    private File getOutputFile(String fileName) {
+        return new File(outputPath
+                + File.separator
+                + prefix
+                + fileName);
+    }
+
+    private void writeLine(BufferedWriter writer, String line,
+                           StatisticsCollector collector) throws IOException {
         writer.write(line);
         writer.newLine();
         collector.add(line);
+    }
+
+    private void closeWriters() {
+        try {
+            if (intWriter != null) intWriter.close();
+            if (floatWriter != null) floatWriter.close();
+            if (stringWriter != null) stringWriter.close();
+        } catch (IOException e) {
+            System.err.println("Error when closing files for writing: " + e.getMessage());
+        }
     }
 
     public Map<String, Statistics> getAllStatistics() {
@@ -126,3 +163,4 @@ public class FileManager {
         return statsMap;
     }
 }
+

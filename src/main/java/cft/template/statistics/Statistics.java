@@ -13,8 +13,12 @@ public class Statistics {
             min = value;
             max = value;
         } else {
-            if (value < min) min = value;
-            if (value > max) max = value;
+            if (value < min) {
+                min = value;
+            }
+            if (value > max) {
+                max = value;
+            }
         }
         sum += value;
         count++;
@@ -44,7 +48,11 @@ public class Statistics {
     }
 
     public double getAverage() {
-        return count == 0 ? 0 : sum / count;
+        if (count == 0) {
+            return 0;
+        } else {
+            return sum / count;
+        }
     }
 
     public int getMinLength() {
