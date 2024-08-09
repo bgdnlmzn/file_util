@@ -106,27 +106,36 @@ public class FileManager {
 
     private BufferedWriter getIntWriter() throws IOException {
         if (intWriter == null) {
-            intWriter = new BufferedWriter(new OutputStreamWriter
-                    (new FileOutputStream(getOutputFile("integers.txt"), append),
-                    StandardCharsets.UTF_8));
+            intWriter = new BufferedWriter(
+                    new OutputStreamWriter(
+                            new FileOutputStream(getOutputFile("integers.txt"), append),
+                    StandardCharsets.UTF_8
+                    )
+            );
         }
         return intWriter;
     }
 
     private BufferedWriter getFloatWriter() throws IOException {
         if (floatWriter == null) {
-            floatWriter = new BufferedWriter(new OutputStreamWriter
-                    (new FileOutputStream(getOutputFile("floats.txt"), append),
-                    StandardCharsets.UTF_8));
+            floatWriter = new BufferedWriter(
+                    new OutputStreamWriter(
+                            new FileOutputStream(getOutputFile("floats.txt"), append),
+                    StandardCharsets.UTF_8
+                    )
+            );
         }
         return floatWriter;
     }
 
     private BufferedWriter getStringWriter() throws IOException {
         if (stringWriter == null) {
-            stringWriter = new BufferedWriter(new OutputStreamWriter
-                    (new FileOutputStream(getOutputFile("strings.txt"), append),
-                    StandardCharsets.UTF_8));
+            stringWriter = new BufferedWriter(
+                    new OutputStreamWriter(
+                            new FileOutputStream(getOutputFile("strings.txt"), append),
+                    StandardCharsets.UTF_8
+                    )
+            );
         }
         return stringWriter;
     }
@@ -137,7 +146,8 @@ public class FileManager {
 
     private void writeLine(BufferedWriter writer,
                            String line,
-                           StatisticsCollector collector) throws IOException {
+                           StatisticsCollector collector)
+            throws IOException {
         writer.write(line);
         writer.newLine();
         collector.add(line);
