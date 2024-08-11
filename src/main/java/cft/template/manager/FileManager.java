@@ -1,5 +1,8 @@
 package cft.template.manager;
 
+import com.ibm.icu.text.CharsetDetector;
+import com.ibm.icu.text.CharsetMatch;
+
 import cft.template.statistics.Statistics;
 import cft.template.statistics.StatisticsCollector;
 
@@ -8,8 +11,12 @@ import java.io.IOException;
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
 import java.io.FileOutputStream;
+import java.io.FileInputStream;
 import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.BufferedInputStream;
 import java.math.BigInteger;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.HashMap;
@@ -55,7 +62,7 @@ public class FileManager {
     }
 
     private void manageFile(File file) {
-        try (BufferedReader reader = Files.newBufferedReader(file.toPath())) {
+        try (BufferedReader reader = Files.newBufferedReader(file.toPath(), detectCharset(file))) {
             String line = reader.readLine();
             if (line == null) {
                 System.err.println("Warning: file " + file.getName() + " is empty");
@@ -141,7 +148,10 @@ public class FileManager {
     }
 
     private File getOutputFile(String fileName) {
-        return new File(outputPath + File.separator + prefix + fileName);
+        return new File(outputPath
+                + File.separator
+                + prefix
+                + fileName);
     }
 
     private void writeLine(BufferedWriter writer,
@@ -170,5 +180,14 @@ public class FileManager {
         statsMap.put("strings", stringStatsCollector.getStatistics());
         return statsMap;
     }
-}
 
+    private Charset detectCharset(File file) throws IOException {
+        try (InputStream stream = new BufferedInputStream(
+                new FileInputStream(file))) {
+            CharsetDetector detector = new CharsetDetector();
+            detector.setText(stream);
+            CharsetMatch match = detector.detect();
+            return Charset.forName(match.getName());
+        }
+    }
+}

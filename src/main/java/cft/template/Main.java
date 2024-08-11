@@ -1,9 +1,10 @@
 package cft.template;
 
+import com.beust.jcommander.JCommander;
+
 import cft.template.cmd.CmdArgs;
 import cft.template.manager.FileManager;
 import cft.template.statistics.StatisticsPrinter;
-import com.beust.jcommander.JCommander;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'application'
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'com.gradleup.shadow' version '8.3.0'
 }
 
 group = 'cft.template'
@@ -16,7 +16,9 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.beust:jcommander:1.81'
+    implementation 'com.beust:jcommander:1.82'
+    implementation 'com.ibm.icu:icu4j:75.1'
+    implementation 'org.apache.tika:tika-core:2.7.0'
 }
 
 shadowJar {
@@ -35,4 +37,3 @@ tasks.named('jar') {
 tasks.build {
     dependsOn shadowJar
 }
-
