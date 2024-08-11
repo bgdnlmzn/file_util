@@ -2,8 +2,8 @@ package cft.template;
 
 import com.beust.jcommander.JCommander;
 
-import cft.template.cmd.CmdArgs;
-import cft.template.manager.FileManager;
+import cft.template.command.CmdArgs;
+import cft.template.files.FileManager;
 import cft.template.statistics.StatisticsPrinter;
 
 public class Main {

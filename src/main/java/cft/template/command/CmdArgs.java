@@ -1,4 +1,4 @@
-package cft.template.cmd;
+package cft.template.command;
 
 import com.beust.jcommander.Parameter;
 
