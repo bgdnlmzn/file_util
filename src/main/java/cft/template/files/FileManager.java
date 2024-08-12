@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.Map;
 
 public class FileManager {
-    private final OutputFileHandler outputFileHandler;
-    private final StatisticsManager statisticsManager;
+    private final FileHandler fileHandler;
+    private final FileWriter fileWriter;
     private final CharsetDetectorService charsetDetectorService;
 
     public FileManager(String outputPath, String prefix, boolean append) {
-        this.outputFileHandler = new OutputFileHandler(outputPath, prefix, append);
-        this.statisticsManager = new StatisticsManager();
+        this.fileHandler = new FileHandler(outputPath, prefix, append);
+        this.fileWriter = new FileWriter();
         this.charsetDetectorService = new CharsetDetectorService();
     }
 
@@ -39,20 +39,18 @@ public class FileManager {
             manageFile(file);
         }
 
-        outputFileHandler.closeWriters();
-
+        fileWriter.closeWriters();
+        System.out.println("-------------------");
         System.out.println("Done!");
+        System.out.println("-------------------");
     }
 
     private void manageFile(File file) {
-        try (BufferedReader reader = outputFileHandler.getReader(file,
+        try (BufferedReader reader = fileHandler.getReader(file,
                 charsetDetectorService.detectCharset(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                statisticsManager.collectStatistics(line,
-                        outputFileHandler.getIntWriter(),
-                        outputFileHandler.getFloatWriter(),
-                        outputFileHandler.getStringWriter());
+                fileWriter.writingProcess(line, fileHandler);
             }
         } catch (IOException e) {
             System.err.println("Error reading file " + e.getMessage());
@@ -60,6 +58,6 @@ public class FileManager {
     }
 
     public Map<String, Statistics> getAllStatistics() {
-        return statisticsManager.getAllStatistics();
+        return fileWriter.getAllStatistics();
     }
 }

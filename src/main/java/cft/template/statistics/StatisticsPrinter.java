@@ -11,7 +11,7 @@ public class StatisticsPrinter {
         }
 
         for (Map.Entry<String, Statistics> entry : statsMap.entrySet()) {
-            System.out.println("Statistics for " + entry.getKey() + ":");
+            System.out.println("Statistics for added " + entry.getKey() + ":");
             Statistics stats = entry.getValue();
             System.out.println("Amount: " + stats.getCount());
             if (showFullStats) {
@@ -25,6 +25,7 @@ public class StatisticsPrinter {
                     System.out.println("Avg: " + stats.getAverage());
                 }
             }
+            System.out.println("-------------------");
         }
     }
 }

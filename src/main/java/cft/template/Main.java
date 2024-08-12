@@ -14,14 +14,6 @@ public class Main {
                 .build()
                 .parse(args);
 
-        if (cmdArgs.isHelp()) {
-            JCommander.newBuilder()
-                    .addObject(cmdArgs)
-                    .build()
-                    .usage();
-            return;
-        }
-
         FileManager fileManager = new FileManager(cmdArgs.getOutputPath(),
                 cmdArgs.getPrefix(),
                 cmdArgs.isAppend());

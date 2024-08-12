@@ -26,8 +26,12 @@ public class Statistics {
 
     public void add(String value) {
         int length = value.length();
-        if (length < minLength) minLength = length;
-        if (length > maxLength) maxLength = length;
+        if (length < minLength) {
+            minLength = length;
+        }
+        if (length > maxLength) {
+            maxLength = length;
+        }
         count++;
     }
 

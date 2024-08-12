@@ -7,7 +7,7 @@ import java.util.List;
 
 public class CmdArgs {
     @Parameter(names = "-o", description = "Path for output files")
-    private String outputPath = ".";
+    private String outputPath = System.getProperty("user.dir");
 
     @Parameter(names = "-p", description = "Prefix for output files")
     private String prefix = "";
@@ -20,9 +20,6 @@ public class CmdArgs {
 
     @Parameter(names = "-f", description = "Show full statistics")
     private boolean showFullStats = false;
-
-    @Parameter(names = "-h", help = true, description = "Show help")
-    private boolean help;
 
     @Parameter(description = "Files for manage")
     private List<String> fileNames = new ArrayList<>();
@@ -45,10 +42,6 @@ public class CmdArgs {
 
     public boolean isShowFullStats() {
         return showFullStats;
-    }
-
-    public boolean isHelp() {
-        return help;
     }
 
     public List<String> getFileNames() {
