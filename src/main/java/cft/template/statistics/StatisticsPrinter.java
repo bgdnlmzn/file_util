@@ -16,11 +16,11 @@ public class StatisticsPrinter {
             System.out.println("Amount: " + stats.getCount());
             if (showFullStats) {
                 if ("strings".equals(entry.getKey())) {
-                    System.out.println("Minimum length: " + stats.getMinLength());
-                    System.out.println("Maximum length: " + stats.getMaxLength());
+                    System.out.println("Min length: " + stats.getMinLength());
+                    System.out.println("Max length: " + stats.getMaxLength());
                 } else {
-                    System.out.println("Minimum: " + stats.getMin());
-                    System.out.println("Maximum: " + stats.getMax());
+                    System.out.println("Min: " + stats.getMin());
+                    System.out.println("Max: " + stats.getMax());
                     System.out.println("Sum: " + stats.getSum());
                     System.out.println("Avg: " + stats.getAverage());
                 }

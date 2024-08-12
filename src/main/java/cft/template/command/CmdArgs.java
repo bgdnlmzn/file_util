@@ -6,22 +6,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CmdArgs {
-    @Parameter(names = "-o", description = "Path for output files")
+    @Parameter(names = "-o")
     private String outputPath = System.getProperty("user.dir");
 
-    @Parameter(names = "-p", description = "Prefix for output files")
+    @Parameter(names = "-p")
     private String prefix = "";
 
-    @Parameter(names = "-a", description = "Add to current files")
+    @Parameter(names = "-a")
     private boolean append = false;
 
-    @Parameter(names = "-s", description = "Show short statistics")
+    @Parameter(names = "-s")
     private boolean showShortStats = false;
 
-    @Parameter(names = "-f", description = "Show full statistics")
+    @Parameter(names = "-f")
     private boolean showFullStats = false;
 
-    @Parameter(description = "Files for manage")
+    @Parameter
     private List<String> fileNames = new ArrayList<>();
 
     public String getOutputPath() {
