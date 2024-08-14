@@ -9,6 +9,10 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Класс для записи данных в файлы и сбора статистики по типам данных.
+ * Используется в {@link FileManager}.
+ */
 public class FileWriter {
     private final StatisticsCollector intStatsCollector = new StatisticsCollector();
     private final StatisticsCollector floatStatsCollector = new StatisticsCollector();
@@ -18,6 +22,13 @@ public class FileWriter {
     private BufferedWriter floatWriter = null;
     private BufferedWriter stringWriter = null;
 
+    /**
+     * Обрабатывает строку данных и записывает её в соответствующий файл в зависимости от типа данных.
+     *
+     * @param line Строка данных для обработки.
+     * @param fileHandler Обработчик файлов.
+     * @throws IOException Если произошла ошибка ввода-вывода.
+     */
     public void writingProcess(String line, FileHandler fileHandler) throws IOException {
         if (isInteger(line)) {
             if (intWriter == null) {
@@ -37,6 +48,11 @@ public class FileWriter {
         }
     }
 
+    /**
+     * Возвращает статистику по всем обработанным данным.
+     *
+     * @return Словарь статистики по типам данных.
+     */
     public Map<String, Statistics> getAllStatistics() {
         Map<String, Statistics> statsMap = new HashMap<>();
         statsMap.put("integers", intStatsCollector.getStatistics());
@@ -45,7 +61,13 @@ public class FileWriter {
         return statsMap;
     }
 
-    private boolean isInteger(String line) {
+    /**
+     * Проверяет, является ли строка целым числом.
+     *
+     * @param line Строка для проверки.
+     * @return {@code true}, если строка является целым числом, иначе {@code false}.
+     */
+    private static boolean isInteger(String line) {
         try {
             new BigInteger(line);
             return true;
@@ -54,7 +76,13 @@ public class FileWriter {
         }
     }
 
-    private boolean isFloat(String line) {
+    /**
+     * Проверяет, является ли строка числом с плавающей точкой.
+     *
+     * @param line Строка для проверки.
+     * @return {@code true}, если строка является числом с плавающей точкой, иначе {@code false}.
+     */
+    private static boolean isFloat(String line) {
         try {
             Float.parseFloat(line);
             return true;
@@ -63,6 +91,14 @@ public class FileWriter {
         }
     }
 
+    /**
+     * Записывает строку данных в файл и обновляет статистику.
+     *
+     * @param writer {@code BufferedWriter} для записи данных.
+     * @param line Строка данных для записи.
+     * @param collector Коллектор статистики для обновления.
+     * @throws IOException Если произошла ошибка ввода-вывода.
+     */
     private void writeLine(BufferedWriter writer,
                            String line,
                            StatisticsCollector collector)
@@ -72,6 +108,9 @@ public class FileWriter {
         collector.add(line);
     }
 
+    /**
+     * Закрывает все открытые потоки записи.
+     */
     public void closeWriters() {
         try {
             if (intWriter != null) intWriter.close();

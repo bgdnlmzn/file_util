@@ -1,8 +1,16 @@
 package cft.template.statistics;
 
+/**
+ * Класс для сбора и управления статистикой по данным.
+ */
 public class StatisticsCollector {
     private final Statistics statistics = new Statistics();
 
+    /**
+     * Добавляет значение в статистику.
+     *
+     * @param value Строковое значение для добавления.
+     */
     public void add(String value) {
         try {
             double numericValue = Double.parseDouble(value);
@@ -12,6 +20,11 @@ public class StatisticsCollector {
         }
     }
 
+    /**
+     * Возвращает собранную статистику.
+     *
+     * @return Статистика по данным.
+     */
     public Statistics getStatistics() {
         return statistics;
     }

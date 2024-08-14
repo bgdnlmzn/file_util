@@ -2,7 +2,17 @@ package cft.template.statistics;
 
 import java.util.Map;
 
+/**
+ * Класс для вывода статистики в консоль.
+ */
 public class StatisticsPrinter {
+    /**
+     * Печатает статистику по данным в консоль в зависимости от флагов.
+     *
+     * @param statsMap Словарь статистики по типам данных.
+     * @param showShortStats Флаг для отображения краткой статистики.
+     * @param showFullStats Флаг для отображения полной статистики.
+     */
     public static void printStatistics(Map<String, Statistics> statsMap,
                                        boolean showShortStats,
                                        boolean showFullStats) {

@@ -6,7 +6,17 @@ import cft.template.command.CmdArgs;
 import cft.template.files.FileManager;
 import cft.template.statistics.StatisticsPrinter;
 
+/**
+ * Главный класс приложения.
+ * Обрабатывает аргументы командной строки с помощью {@link CmdArgs}.
+ * Управляет обработкой файлов с использованием {@link FileManager}.
+ * Выводит статистику с помощью {@link StatisticsPrinter}.
+ */
 public class Main {
+    /**
+     * @param args Аргументы командной строки, переданные приложению.
+     *             Они парсятся и обрабатываются с помощью {@link JCommander}.
+     */
     public static void main(String[] args) {
         CmdArgs cmdArgs = new CmdArgs();
         JCommander.newBuilder()

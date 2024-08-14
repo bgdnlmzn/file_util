@@ -10,9 +10,20 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 
+/**
+ * Класс для определения кодировки текстовых файлов.
+ * Использует {@link CharsetDetector} и {@link CharsetMatch} библиотеки ICU4J.
+ */
 public class CharsetDetectorService {
 
-    public Charset detectCharset(File file) throws IOException {
+    /**
+     * Определяет кодировку указанного файла.
+     *
+     * @param file Файл, кодировку которого необходимо определить.
+     * @return Кодировка файла.
+     * @throws IOException Если произошла ошибка ввода-вывода при чтении файла.
+     */
+    public static Charset detectCharset(File file) throws IOException {
         try (InputStream stream = new BufferedInputStream(
                 new FileInputStream(file))) {
             CharsetDetector detector = new CharsetDetector();
