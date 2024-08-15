@@ -80,7 +80,7 @@ public class FileManager {
     /**
      * Возвращает статистику по всем обработанным файлам.
      *
-     * @return Карта статистики по типам данных.
+     * @return Словарь статистики по типам данных.
      */
     public Map<String, Statistics> getAllStatistics() {
         return fileWriter.getAllStatistics();
